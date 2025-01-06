@@ -14,13 +14,18 @@
     <a href="employees/create">Create New</a>
 </p>
 
-<QuickGrid Class="table" Items="context.Employee" Pagination="paginationState">
+<QuickGrid Class="table" Items="Employees" Pagination="paginationState">
     <PropertyColumn Property="employee => employee.FirstName"
-                    Sortable="true" Title="First Name"/>
+                    Sortable="true" Title="First Name">
+        <ColumnOptions>
+            <input type="search" class="form-control"
+                   @bind="firstNameFilter" @bind:event="oninput" autofocus />
+        </ColumnOptions>
+    </PropertyColumn>
     <PropertyColumn Property="employee => employee.LastName"
-                    Sortable="true" Title="Last Name"/>
+                    Sortable="true" Title="Last Name" />
     <PropertyColumn Property="employee => employee.IsDeveloper"
-        Title="Is Developer"/>
+                    Title="Is Developer" />
 
     <TemplateColumn Context="employee">
         <a href="@($"employees/edit?id={employee.Id}")">Edit</a> |
@@ -29,10 +34,12 @@
     </TemplateColumn>
 </QuickGrid>
 
-<Paginator State="paginationState"/>
+<Paginator State="paginationState" />
 
 @code {
     private EmployeeManagerDbContext context = default!;
+
+    string firstNameFilter = "";
 
     protected override void OnInitialized()
     {
@@ -41,5 +48,8 @@
 
     public async ValueTask DisposeAsync() => await context.DisposeAsync();
 
-    PaginationState paginationState = new PaginationState{ItemsPerPage = 5};
+    PaginationState paginationState = new PaginationState { ItemsPerPage = 5 };
+
+    IQueryable<Employee> Employees
+        => context.Employee.Where(x => x.FirstName!.Contains(firstNameFilter));
 }
