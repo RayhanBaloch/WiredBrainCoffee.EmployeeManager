@@ -1,11 +1,11 @@
 ﻿using WireBrainCoffee.Employee.Components;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using WireBrainCoffee.Employee.Models;
+using WireBrainCoffee.Employee.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<EmployeeManagerDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("EmployeeManagerDbContext") ?? throw new InvalidOperationException("Connection string 'EmployeeManagerDbContext' not found.")));
+//builder.Services.AddDbContext<EmployeeManagerDbContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("EmployeeManagerDbContext") ?? throw new InvalidOperationException("Connection string 'EmployeeManagerDbContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
