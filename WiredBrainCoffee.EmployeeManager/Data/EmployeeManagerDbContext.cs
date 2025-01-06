@@ -8,11 +8,12 @@ namespace WiredBrainCoffee.EmployeeManager.Data
 {
     public class EmployeeManagerDbContext : DbContext
     {
-        public EmployeeManagerDbContext (DbContextOptions<EmployeeManagerDbContext> options)
+        public EmployeeManagerDbContext 
+            (DbContextOptions<EmployeeManagerDbContext> options)
             : base(options)
         {
         }
 
-        public DbSet<WiredBrainCoffee.EmployeeManager.Data.Employee> Employee { get; set; } = default!;
+        public DbSet<Employee> Employee { get; set; } = default!;
     }
 }
