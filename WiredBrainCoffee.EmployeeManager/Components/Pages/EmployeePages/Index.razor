@@ -14,7 +14,7 @@
     <a href="employees/create">Create New</a>
 </p>
 
-<QuickGrid Class="table" Items="context.Employee">
+<QuickGrid Class="table" Items="context.Employee" Pagination="paginationState">
     <PropertyColumn Property="employee => employee.FirstName"
                     Sortable="true" Title="First Name"/>
     <PropertyColumn Property="employee => employee.LastName"
@@ -29,6 +29,8 @@
     </TemplateColumn>
 </QuickGrid>
 
+<Paginator State="paginationState"/>
+
 @code {
     private EmployeeManagerDbContext context = default!;
 
@@ -38,4 +40,6 @@
     }
 
     public async ValueTask DisposeAsync() => await context.DisposeAsync();
+
+    PaginationState paginationState = new PaginationState{ItemsPerPage = 5};
 }
