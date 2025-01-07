@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using WiredBrainCoffee.EmployeeManager.Data;
 
 namespace WiredBrainCoffee.EmployeeManager.Data
 {
@@ -15,5 +16,17 @@ namespace WiredBrainCoffee.EmployeeManager.Data
         }
 
         public DbSet<Employee> Employee { get; set; } = default!;
+        public DbSet<Department> Department { get; set; } = default!;
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Department>().HasData(
+                new Department { Id = 1, Name = "IT"}
+                );
+
+            modelBuilder.Entity<Employee>().Property(e => e.DepartmentId)
+                .HasDefaultValue(1);
+
+        }
     }
 }

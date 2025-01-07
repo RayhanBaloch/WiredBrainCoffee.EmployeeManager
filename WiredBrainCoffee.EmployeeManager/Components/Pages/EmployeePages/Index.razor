@@ -26,6 +26,8 @@
                     Sortable="true" Title="Last Name" />
     <PropertyColumn Property="employee => employee.IsDeveloper"
                     Title="Is Developer" />
+    <PropertyColumn Property="employee => employee.Department!.Name"
+                    Title="Department" />
 
     <TemplateColumn Context="employee">
         <a href="@($"employees/edit?id={employee.Id}")">Edit</a> |
@@ -51,5 +53,6 @@
     PaginationState paginationState = new PaginationState { ItemsPerPage = 5 };
 
     IQueryable<Employee> Employees
-        => context.Employee.Where(x => x.FirstName!.Contains(firstNameFilter));
+        => context.Employee.Include(e => e.Department)
+        .Where(x => x.FirstName!.Contains(firstNameFilter));
 }
