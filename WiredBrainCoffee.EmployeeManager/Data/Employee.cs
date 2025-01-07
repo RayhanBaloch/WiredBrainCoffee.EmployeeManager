@@ -13,4 +13,10 @@ public class Employee
     public string? LastName { get; set; }
     [Required]
     public bool IsDeveloper { get; set; }
+
+    [Required]
+    public int? DepartmentId { get; set; }
+
+    public Department? Department { get; set; }
+
 }
